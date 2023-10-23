@@ -46,7 +46,6 @@ export function run(opts = {} as Omit<RunArgvs, '_'>) {
     return
   }
   const finalHtml = buildFinalHtml(argvs.input)
-  console.log(finalHtml)
   convertHTMLToPDF(finalHtml, (pdf) => {
     fs.writeFileSync(argvs.output, pdf)
     console.log('success')
