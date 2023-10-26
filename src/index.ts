@@ -67,26 +67,12 @@ export function run(opts = {} as Omit<RunArgvs, '_'>) {
 }
 
 const buildFinalHtml = (filePath: string) => {
-  const fileName = getFileName(filePath)
   let fileContent = fs.readFileSync(filePath).toString()
   if (filePath.endsWith('.md')) {
     const renderer = createMarkdownRenderer('.', {}, '/')
     fileContent = renderer.render(fileContent)
   }
-  return '<html>' + headTag + '<body>' + '<div class="title">' + fileName + '</div>' + handleContent(handleIframeContent(fileContent)) + '</body>' + cssStyleTag + '</html>'
-}
-
-const getFileName = (filePath: string) => {
-  let tmpPath = filePath
-  const lastSlashIndex = tmpPath.lastIndexOf('/')
-  if (lastSlashIndex !== -1) {
-    tmpPath = tmpPath.substring(lastSlashIndex + 1)
-  }
-  const lastDotIndex = tmpPath.lastIndexOf('.')
-  if (lastDotIndex !== -1) {
-    tmpPath = tmpPath.substring(0, lastDotIndex)
-  }
-  return tmpPath
+  return '<html>' + headTag + '<body>' + handleContent(handleIframeContent(fileContent)) + '</body>' + cssStyleTag + '</html>'
 }
 
 const highlight = (str: string, lang: string) => {
