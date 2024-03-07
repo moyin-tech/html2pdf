@@ -1,6 +1,6 @@
 {
   "name": "moyin-html2pdf",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a powerful html to PDF command tool use for production environment",
   "homepage": "https://github.com/moyin-tech/html2pdf",
   "author": "moyin tech",
@@ -46,7 +46,8 @@
     "markdown-it-container": "^3.0.0",
     "markdown-it-emoji": "^2.0.2",
     "markdown-it-table-of-contents": "^0.6.0",
-    "pdf-puppeteer": "^1.1.11",
+    "pdf-puppeteer": "1.1.11",
+    "puppeteer": "21.4.0",
     "prismjs": "^1.29.0"
   },
   "devDependencies": {
