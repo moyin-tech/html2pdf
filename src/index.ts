@@ -336,6 +336,7 @@ div[class*=language-].line-numbers-mode {
 }
 div[class*=language-].line-numbers-mode pre {
   padding-left: 16px;
+  white-space: pre-wrap;
 }
 div[class*=language-].line-numbers-mode pre:hover::-webkit-scrollbar-thumb {
   background: #D3D3D3;
@@ -357,7 +358,7 @@ div[class*=language-].line-numbers-mode pre::-webkit-scrollbar {
   overflow-x: auto;
   line-height: 24px;
   text-align: left;
-  white-space: pre;
+  white-space: pre-wrap;
   word-spacing: normal;
   word-break: normal;
   word-wrap: normal;
@@ -876,7 +877,7 @@ pre[class*="language-"] {
 	font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
 	direction: ltr;
 	text-align: left;
-	white-space: pre;
+	white-space: pre-wrap;
 	word-spacing: normal;
 	word-break: normal;
 	line-height: 1.5;
