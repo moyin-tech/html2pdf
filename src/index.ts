@@ -208,45 +208,39 @@ const cssStyleTag: string = `\n<style>
 iframe {
   display: none;
 }
-h1 {
+h1, h2, h3, h4, h5, h6 {
   margin: 24px 0 0 0;
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: bold;
+  line-height: 1.4;
   color: #262626;
+}
+h1 {
+  font-size: 28px;
 }
 h2 {
-  margin: 24px 0 0 0;
   font-size: 24px;
-  font-weight: bold;
-  line-height: 1.25;
-  color: #262626;
 }
 h3 {
-  margin: 24px 0 0 0;
   font-size: 20px;
-  font-weight: bold;
-  line-height: 1.25;
-  color: #262626;
 }
-h4, h5, h6 {
-  margin: 24px 0 0 0;
+h4 {
   font-size: 18px;
-  font-weight: bold;
-  line-height: 1.25;
-  color: #262626;
 }
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 14px;
+}
+
 p {
   margin: 16px 0 0;
   font-size: 16px;
   font-weight: normal;
-  line-height: 2;
-  min-height: 32px;
+  line-height: 1.75;
+  min-height: 28px;
   color: #333;
   white-space: normal;
-}
-p + p {
-  margin: 0;
 }
 p img.ProseMirror-separator {
   display: none !important;
@@ -254,6 +248,9 @@ p img.ProseMirror-separator {
 p .ProseMirror-trailingBreak:not(:first-child) {
   height: 0;
   display: none;
+}
+p img.ProseMirror-separator + .ProseMirror-trailingBreak {
+  display: inline;
 }
 mark {
   color: inherit;
@@ -356,7 +353,7 @@ div[class*=language-].line-numbers-mode pre::-webkit-scrollbar {
   padding: 16px;
   background: transparent;
   overflow-x: auto;
-  line-height: 24px;
+  line-height: 1.5;
   text-align: left;
   white-space: pre-wrap;
   word-spacing: normal;
@@ -380,13 +377,13 @@ div[class*=language-].line-numbers-mode pre::-webkit-scrollbar {
   padding-top: 16px;
   width: 32px;
   text-align: center;
-  line-height: 24px;
+  line-height: 1.5;
   font-size: 16px;
   color: rgba(235, 235, 235, 0.38);
   transition: border-color 0.5s, color 0.5s;
 }
 code {
-  line-height: 23px !important;
+  line-height: 1.5;
   font-family: source-code-pro, Menlo, Monaco, Consolas, Courier New, monospace;
 }
 p code, li > code, h1 > code, h2 > code, h3 > code, h4 > code, h5 > code, h6 > code, td > code, th > code {
@@ -406,12 +403,8 @@ hr {
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.tableWrapper {
-  margin: 1em 0;
-  overflow-x: auto;
-}
 table {
-  margin: 10px 0;
+  margin: 16px 0 0 0;
   border: 1px solid #dfe2e5;
   border-collapse: collapse;
   font-size: 16px;
@@ -438,24 +431,23 @@ table td, table th {
   border: 1px solid #dfe2e5;
   padding: 10px 16px;
   height: 44px;
+  min-width: 60px;
   box-sizing: border-box;
   word-break: normal;
+  overflow-wrap: anywhere;
   position: relative;
 }
 table td.selectedCell, table th.selectedCell {
   background-color: rgba(var(--theme_main_color_rgb), 0.4) !important;
 }
-table td p, table th p {
-  margin: 0;
-  line-height: 2;
-  color: #333;
-  min-height: 32px;
+table td > *, table th > * {
+  margin-top: 6px;
 }
-table td ul, table td ol, table th ul, table th ol {
+table td > *:first-child, table th > *:first-child {
   margin-top: 0;
 }
-table td h1, table td h2, table td h3, table td h4, table td h5, table td h6, table th h1, table th h2, table th h3, table th h4, table th h5, table th h6 {
-  margin: 0;
+table td > *:last-child, table th > *:last-child {
+  margin-bottom: 0;
 }
 table td div[class*=language-] {
   margin-top: -16px;
@@ -466,10 +458,17 @@ table td [class*=language-] code br {
 table td div[class*=language-].line-numbers-mode pre + br {
   display: none;
 }
+.tableWrapper {
+  margin: 16px 0 0 0;
+  position: relative;
+}
+.tableWrapper table {
+  margin-top: 0;
+}
 img {
   display: inline-block;
   float: none;
-  margin: 12px 0;
+  margin: 0;
   max-width: 100%;
   height: auto;
   cursor: zoom-in;
@@ -498,7 +497,7 @@ img[data-display=right] {
   display: inline-block;
   float: none;
   line-height: 0;
-  margin: 12px 0;
+  margin: 0;
   max-width: 100%;
   user-select: none;
   vertical-align: baseline;
@@ -548,7 +547,7 @@ img[data-display=right] {
   z-index: -1;
 }
 .image-view__body__image {
-  cursor: zoom-in;
+  cursor: default;
   margin: 0;
   min-width: 16px;
   min-height: 16px;
@@ -643,6 +642,9 @@ ul[data-type=taskList] li[data-type=taskItem][data-done=done] > .todo-content > 
   color: var(--theme_main_color);
   text-decoration: line-through;
 }
+ul[data-type=taskList] li[data-type=taskItem] .task-height {
+  height: 28px;
+}
 ul {
   padding: 0;
   margin: 16px 0 0px 19px;
@@ -660,7 +662,7 @@ ol {
 li {
   font-size: 16px;
   font-weight: normal;
-  line-height: 2;
+  line-height: 1.75;
   color: #333;
   user-select: text;
 }
@@ -716,9 +718,10 @@ blockquote > :first-child {
 .iframe-container-box {
   max-width: 100%;
   border: 1px solid transparent;
+  margin-top: 16px;
 }
 .iframe-container-box .iframe-container {
-  margin: 16px 0 0 0;
+  margin: 0 0 0 0;
   overflow: hidden;
   position: relative;
   padding-top: 56.25%;
@@ -744,27 +747,21 @@ blockquote > :first-child {
 custom-block {
   display: block;
 }
-latex-block {
-  display: inline-flex;
-}
-latex-block .katex-display {
-  margin: 6px;
-}
 .custom-block {
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 10px;
-  line-height: 24px;
+  line-height: 1.75;
   font-size: 14px;
   margin-top: 16px;
 }
-.custom-block p {
-  margin-top: 0;
-}
-.custom-block h1, .custom-block h2, .custom-block h3, .custom-block h4, .custom-block h5, .custom-block h6 {
+.custom-block > * {
   margin-top: 6px;
 }
-.custom-block ol, .custom-block ul {
+.custom-block > *:last-child {
+  margin-bottom: 0;
+}
+.custom-block > *:first-child {
   margin-top: 0;
 }
 .tips {
@@ -818,22 +815,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-.latex-block {
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-}
-.latex-block:hover {
-  border: 1px solid var(--theme_main_color);
-}
-.latex-block .katex-display {
-  margin: 6px;
-}
-.latex-block-selected {
-  border: 1px solid var(--theme_main_color);
-}
 .conflict-block {
   display: block;
   border: 1px solid transparent;
@@ -858,14 +839,71 @@ a:hover {
   border-radius: 4px 4px 0 0;
   cursor: pointer;
 }
-.conflict-block p {
-  margin-top: 0;
-}
-.conflict-block h1, .conflict-block h2, .conflict-block h3, .conflict-block h4, .conflict-block h5, .conflict-block h6 {
+.conflict-block > * {
   margin-top: 6px;
 }
-.conflict-block ol, .conflict-block ul {
+.conflict-block > *:first-child {
   margin-top: 0;
+}
+.conflict-block > *:last-child {
+  margin-bottom: 6px;
+}
+.file-block {
+  margin: 16px 0 0 0;
+  height: 60px;
+  border: 1px solid #dee0e3;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 8px 12px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.file-block:hover {
+  border: 1px solid rgba(var(--theme_main_color_rgb), 0.6);
+}
+.file-block * {
+  pointer-events: none;
+}
+.file-block .file-icon {
+  width: 36px;
+  height: 36px;
+}
+.file-block .file-info {
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 0;
+  flex-grow: 1;
+}
+.file-block .file-info .file-name {
+  color: rgb(31, 35, 41);
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 19px;
+}
+.file-block .file-info .file-size {
+  margin-top: 4px;
+  color: rgb(100, 106, 115);
+  font-size: 12px;
+  line-height: 14px;
+}
+.el-checkbox {
+	display: inline-flex;
+	align-items: center;
+}
+.el-checkbox__input {
+	display: inline-flex;
+}
+.el-checkbox__inner {
+  display: inline-block;
+  border: 1px solid rgb(220, 223, 230);
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
 }
 </style>
 <style>
