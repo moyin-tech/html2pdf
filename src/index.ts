@@ -1,6 +1,6 @@
 import fs from 'fs';
 import minimist, { ParsedArgs } from 'minimist';
-import convertHTMLToPDF from 'pdf-puppeteer';
+import { convertHTMLToPDF } from './utils/convertHTMLToPDF';
 import { createMarkdownRenderer } from './markdown';
 import prism from 'prismjs';
 import loadLanguages from 'prismjs/components/index';
