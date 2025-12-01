@@ -12,7 +12,6 @@ import { preWrapperPlugin } from './plugins/preWrapper'
 import { linkPlugin } from './plugins/link'
 import { headingPlugin } from './plugins/headings'
 import { imagePlugin } from './plugins/image'
-import { videoPlugin } from './plugins/video'
 import { tablePlugin } from './plugins/table'
 import { htmlBlockPlugin } from './plugins/htmlblock'
 import { taskListPlugin } from './plugins/taskList'
@@ -67,18 +66,19 @@ export const createMarkdownRenderer = (
     html: true,
     linkify: true,
     breaks: true,
+    highlight,
     ...options
   }) as MarkdownRenderer
 
   // custom plugins
   md.use(componentPlugin)
     .use(highlightLinePlugin)
+    .use(preWrapperPlugin)
     .use(snippetPlugin, srcDir)
     .use(hoistPlugin)
     .use(containerPlugin)
     .use(headingPlugin)
     .use(imagePlugin)
-    .use(videoPlugin)
     .use(taskListPlugin)
     .use(
       linkPlugin,
@@ -102,7 +102,7 @@ export const createMarkdownRenderer = (
     .use(tablePlugin)
     .use(htmlBlockPlugin)
     .use(paragraphPlugin)
-    // .use(lineNumberPlugin)
+    .use(lineNumberPlugin)
 
   // apply user config
   if (options.config) {

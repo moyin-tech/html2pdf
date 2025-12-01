@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-let convertHTMLToPDF = async (html, callback, options = null, puppeteerArgs=null, remoteContent=true) => {
+let convertHTMLToPDF = async (html: any, callback: any, options: any = null, puppeteerArgs: any=null, remoteContent: any=true) => {
     if (typeof html !== 'string') {
         throw new Error(
             'Invalid Argument: HTML expected as type of string and received a value of a different type. Check your request body and request headers.'
