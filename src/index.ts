@@ -1,6 +1,6 @@
 import fs from 'fs';
 import minimist, { ParsedArgs } from 'minimist';
-import { convertHTMLToPDF } from './utils/convertHTMLToPDF';
+import { convertHTMLToPDF, convertURLToPdf } from './utils/convertHTMLToPDF';
 import { createMarkdownRenderer } from './markdown';
 import prism from 'prismjs';
 import loadLanguages from 'prismjs/components/index';
@@ -21,12 +21,14 @@ export function run(opts = {} as Omit<RunArgvs, '_'>) {
       help: 'h',
       version: 'v',
       input: 'i',
+      url: 'u',
       output: 'o',
     },
     default: {
       version: opts.v || opts.version || false,
       help: opts.v || opts.version || false,
       input: opts.i || opts.input || '',
+      url: opts.u || opts.url || '',
       output: opts.o || opts.output || '',
     }
   })
@@ -39,31 +41,50 @@ export function run(opts = {} as Omit<RunArgvs, '_'>) {
     return;
   }
 
-  if (!argvs.i && !argvs.input) {
-    console.log('Missing Parameter "input".')
+  if (!argvs.i && !argvs.input && !argvs.u && !argvs.url) {
+    console.log('Missing Parameter "input" or "url".')
     return
   }
   if (!argvs.o && !argvs.output) {
     console.log('Missing Parameter "output".')
     return
   }
-  const finalHtml = buildFinalHtml(argvs.input)
-  convertHTMLToPDF(finalHtml, (pdf) => {
-    fs.writeFileSync(argvs.output, pdf)
-    console.log('success')
-  }, {
-    printBackground: true,
-    margin: {
-      left: 38.5,
-      right: 38.5,
-      top: 38.5,
-      bottom: 38.5
-    },
-    width: 792.5,
-    height: 1123
-  }, { 
-    args: ['--no-sandbox']
-  } as any, true)
+  if (argvs.input) {
+    const finalHtml = buildFinalHtml(argvs.input)
+    convertHTMLToPDF(finalHtml, (pdf) => {
+      fs.writeFileSync(argvs.output, pdf)
+      console.log('success')
+    }, {
+      printBackground: true,
+      margin: {
+        left: 38.5,
+        right: 38.5,
+        top: 38.5,
+        bottom: 38.5
+      },
+      width: 792.5,
+      height: 1123
+    }, { 
+      args: ['--no-sandbox']
+    } as any, true)
+  } else if (argvs.url) {
+    convertURLToPdf(argvs.url, (pdf) => {
+      fs.writeFileSync(argvs.output, pdf)
+      console.log('success')
+    }, {
+      printBackground: true,
+      margin: {
+        left: 38.5,
+        right: 38.5,
+        top: 38.5,
+        bottom: 38.5
+      },
+      width: 792.5,
+      height: 1123
+    }, { 
+      args: ['--no-sandbox']
+    } as any, true)
+  }
 }
 
 const buildFinalHtml = (filePath: string) => {
@@ -168,6 +189,7 @@ const extractAtrribute = (attrStr: string, attrName: string) => {
 export const cliHelp: string = `\n  Usage: html2pdf [options] [--help|h]
   Options:\n
     --input, -i            The path of the target file "*.html, *.md". Default: ""
+    --url, -u              The url of the target file. Default: ""
     --output, -o           The path of the target file "*.pdf". Default: ""
     --version, -v           Show version number
     --help, -h              Displays help information.
@@ -177,6 +199,7 @@ export const exampleHelp: string =`\n  Example:
     \x1b[35mnpm\x1b[0m html2pdf
     \x1b[35mnpm\x1b[0m h2p
     \x1b[35mnpm\x1b[0m html2pdf \x1b[33m--input\x1b[0m README.html \x1b[33m--output\x1b[0m README.pdf
+    \x1b[35mnpm\x1b[0m html2pdf \x1b[33m--url\x1b[0m https://xxx.xxx \x1b[33m--output\x1b[0m README.pdf
 `;
 
 const headTag: string = `<head>

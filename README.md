@@ -43,6 +43,8 @@ h2p [options] <argument>
 html2pdf --input sample.html --output sample.pdf
 # Convert a markdown file to pdf file.
 html2pdf --input sample.md --output sample.pdf
+# Convert url to pdf file.
+html2pdf --url https://www.google.com --output sample.pdf
 
 ```
 

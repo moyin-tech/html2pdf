@@ -33,4 +33,32 @@ let convertHTMLToPDF = async (html: any, callback: any, options: any = null, pup
     await browser.close();
 };
 
-export { convertHTMLToPDF };
+let convertURLToPdf = async (url: string, callback: any, options: any = null, puppeteerArgs: any=null, remoteContent: any=true) => {
+	let browser;
+	if (puppeteerArgs) {
+		browser = await puppeteer.launch(puppeteerArgs);
+	} else {
+		browser = await puppeteer.launch();
+	}
+
+    const page = await browser.newPage();
+    if (!options) {
+        options = { format: 'Letter' };
+    }
+
+    if (remoteContent === true) {
+        await page.goto(url, {
+            waitUntil: 'networkidle0'
+        });
+    } else {
+        //page.setContent will be faster than page.goto if html is a static
+        // await page.setContent(html);
+    }
+
+    await page.pdf(options).then(callback, function(error) {
+        console.log(error);
+    });
+    await browser.close();
+};
+
+export { convertHTMLToPDF, convertURLToPdf };
