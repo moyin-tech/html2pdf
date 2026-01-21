@@ -81,6 +81,8 @@ export function run(opts = {} as Omit<RunArgvs, '_'>) {
       },
       width: 792.5,
       height: 1123,
+      displayHeaderFooter: true,
+      headerTemplate: '<div></div>',
       footerTemplate: `
       <div style="font-size: 10px; margin: 0 auto; width: 100%; text-align: right;">
         <span class="pageNumber"></span> / <span class="totalPages"></span>
