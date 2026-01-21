@@ -80,7 +80,12 @@ export function run(opts = {} as Omit<RunArgvs, '_'>) {
         bottom: 38.5
       },
       width: 792.5,
-      height: 1123
+      height: 1123,
+      footerTemplate: `
+      <div style="font-size: 10px; margin: 0 auto; width: 100%; text-align: right;">
+        <span class="pageNumber"></span> / <span class="totalPages"></span>
+      </div>
+    `,
     }, { 
       args: ['--no-sandbox']
     } as any, true)
